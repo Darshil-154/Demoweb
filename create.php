@@ -19,6 +19,9 @@ if (mysqli_query($conn, $sql)) {
 } else {
   echo "Error creating table: " . mysqli_error($conn);
 }
-
+$sql = "UPDATE info SET password = MD5(password)";
+if (mysqli_query($conn, $sql)) {
+  echo "password is now secure by MD5";
+} 
 mysqli_close($conn);
 ?>
