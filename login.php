@@ -7,7 +7,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="../../dist/jquery.validate.js"></script>
 </head>
 
 <style>
@@ -85,11 +89,15 @@
 
 
                             <!-- Email input -->
-                            <div class="input-group flex-nowrap mb-4">
-                                <span class="input-group-text text-light bg-primary" id="addon-wrapping"><strong>E-mail</strong></span>
-                                <input type="email" class="form-control" name="myemail" placeholder="username@gmail.com" aria-label="E-mail" aria-describedby="addon-wrapping" required>
-                            </div>
-
+                           
+                            <div class="input-group has-validation flex-nowrap mb-4">
+                        <span class="input-group-text text-light bg-primary" id="inputGroupPrepend"><strong>E-mail</strong></span>
+                        <input type="email" class="form-control" name="myemail" placeholder="username@gmail.com" aria-label="E-mail" id="validationCustomUsername"  required spellcheck="false" data-ms-editor="true">
+                        <div class="invalid-feedback">
+                          Please choose a username.
+                        </div>
+                        
+                      </div>
                             <div class="input-group flex-nowrap mb-4">
                                 <span class="input-group-text text-light bg-primary" id="addon-wrapping"><strong>Password</strong></span>
                                 <input type="password" class="form-control" id="pass" name="pass" placeholder="*  *  *  *  *  *  *" aria-label="Password" aria-describedby="addon-wrapping" required>
