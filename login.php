@@ -5,58 +5,68 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-       
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript" src="../../dist/jquery.validate.js"></script>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Login</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
 </head>
 
 <style>
     body {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+
         background-image: url("bg.jpg");
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
     }
-
-    .err {
+    .err{
         color: red;
-    }
-
-    .invalid-password {
-        border: 1px solid red;
     }
 </style>
 
 <body>
-
+ 
     <?php
-    $email = $pass = $err = "";
-    $emailwar = $passwordwar = "";
+    
+    $pass =$input= "";
+   $passwordwar = "";
     // error_reporting(0);
     $err = "Enter valid E-mail or Password";
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        if (empty($_POST["myemail"])) {
-            $emailwar = "Enter your email";
-        } else {
-            $email = data($_POST["myemail"]);
+        if (($_POST["user-email"])) {
+
+            $input = data($_POST["user-email"]);
+            
         }
-        if (empty($_POST["pass"])) {
-            $passwordwar = "Please Enter your password";
-        } else {
-            $pass = data($_POST["pass"]);
-        }
-        if ($pass >= 6 && $pass <= 10) {
-            $pass = $password;
-        } else {
+        if (($_POST["password"])) {
+
+            $pass = data($_POST["password"]);
+        
+        
+            $pass = password_hash($pass, PASSWORD_DEFAULT);
+    }
+      else {
             $passwordwar = "Password must be 6 to 10 characters long";
         }
     }
@@ -68,83 +78,96 @@
         return $info;
     }
     ?>
-    <section class="text-center w-100">
-
-        <!-- Background image -->
-
-        <!-- Background image -->
-
-        <div class="card mx-4 mx-md-5 shadow-5-strong" style="
-    
-      background: rgba(33, 33, 33, 0);
-      backdrop-filter: blur(60px);
-      ">
-            <div class="card-body py-5 px-md-5">
-
-                <div class="row d-flex justify-content-center">
-
-                    <div class="col-lg-8">
-                        <h2 class="fw-bold mb-5">Login to your Account</h2>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-
-
-                            <!-- Email input -->
-                           
-                            <div class="input-group has-validation flex-nowrap mb-4">
-                        <span class="input-group-text text-light bg-primary" id="inputGroupPrepend"><strong>E-mail</strong></span>
-                        <input type="email" class="form-control" name="myemail" placeholder="username@gmail.com" aria-label="E-mail" id="validationCustomUsername"  required spellcheck="false" data-ms-editor="true">
-                        <div class="invalid-feedback">
-                          Please choose a username.
-                        </div>
-                        
-                      </div>
-                            <div class="input-group flex-nowrap mb-4">
-                                <span class="input-group-text text-light bg-primary" id="addon-wrapping"><strong>Password</strong></span>
-                                <input type="password" class="form-control" id="pass" name="pass" placeholder="*  *  *  *  *  *  *" aria-label="Password" aria-describedby="addon-wrapping" required>
-                            </div>
+  
 
 
 
+    <main>
+    <div class="container">
+
+<section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
 
-                            <a href="home.php"> <input type="submit" name="Login" value="Login" class="btn btn-primary btn-block mb-4" /></a><br>
-                            New account?<a href="sign.php"> Signin now</a><br>
+      <div class="card mb-3 shadow-7-strong" style="background: rgba(0,0,0,0.1); backdrop-filter: blur(70px);">
+
+          <div class="card-body">
+                                <div class="pt-4 pb-2">
+                                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
+                                    <p class="text-center small">Enter your username & password to login</p>
+                                </div>
+
+                                <form method="post" class="row g-3 needs-validation" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" novalidate>
+
+                                
+                                    <div class="col-12">
+                                        <label for="yourUsername" class="form-label">Username or E-mail</label>
+                                        <div class="input-group has-validation">
+                                            <input type="text" name="user-email" class="form-control" id="user-email" required>
+                                            <div class="invalid-feedback">Please enter valid username or email.</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="yourPassword" class="form-label">Password</label>
+                                        <input type="password" name="password" class="form-control  class=" form-control <?php echo (!empty($passwordwar)) ? 'invalid-password' : ''; ?>" id="pass" name="pass" required>
+                                        <div class="invalid-feedback">Please enter your password!</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                    <a href="home.php"> <button class="btn btn-primary w-100" type="submit" name="Login" value="Login" >Login</button></a>
+                                    </div>
+                                    <div class="col-12">
+                                        <p class="small mb-0">Don't have account? <a href="sign.php">Create an account</a></p>
+                                    </div>
+                                    
 
 
-
-                            <div class="err">
-
-
-                                <?php
-                                include 'db_connect.php';
-                                if (array_key_exists('Login', $_POST)) {
-                                    if (!empty($email) && !empty($pass)) {
-                                        $sql = "SELECT * FROM info WHERE email = '$email' AND password = md5('$pass') limit 1";
-                                    }
-                                    $result = mysqli_query($conn, $sql);
-                                    if (mysqli_num_rows($result) > 0) {
+                                    <div class="err">
 
 
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $_SESSION['firstname'] = $row["firstname"];
-                                            $_SESSION['lastname'] = $row["lastname"];
-                                            $_SESSION['email'] = $row["email"];
-                                            echo "<script>alert('welcome, " . $row['firstname'] . " " . $row["lastname"] . "')</script>";
+                                        <?php
+                                        include 'db_connect.php';
+                                        if (array_key_exists('Login', $_POST)) {
+                                            if (!empty($input) && !empty($pass)) {
+                                                $sql = "SELECT * FROM info WHERE (email = '$input' OR username ='$input') AND password = '$pass' limit 1";
+                                            }
+                                            $result = mysqli_query($conn, $sql);
+                                            if (mysqli_num_rows($result) > 0) {
+
+
+                                                while ($row = mysqli_fetch_assoc($result)) {
+                                                    $_SESSION['name'] = $row["name"];
+                                                    $_SESSION['username'] = $row["username"];
+                                                    $_SESSION['email'] = $row["email"];
+                                                    echo "<script>alert('welcome, " . $row['name'] . "(". $row['username'] ."')</script>";
+                                                }
+                                                echo '<script> window.location.href = "home.php";</script>';
+                                            } else {
+                                                echo "Enter valid login info";
+                                            }
+                                            mysqli_close($conn);
                                         }
-                                        echo '<script> window.location.href = "home.php";</script>';
-                                    } else {
-                                        echo "Enter valid E-mail or Password";
-                                    }
-                                    mysqli_close($conn);
-                                }
-                                ?>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                                        ?>
+                                    </div>
+                                    </form>
+              </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
+
+      </section>
+
+    </div>
+  </main><!-- End #
 </body>
 
 </html>
