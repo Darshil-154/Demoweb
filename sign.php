@@ -51,73 +51,56 @@ $passwordwar = "";
 // Function to sanitize user input
 function sanitize($info)
 {
-    $info = trim($info);
+    
     $info = htmlspecialchars($info);
-    $info = stripslashes($info);
+  
     return $info;
 }
 
 // Form validation and data handling
-
-    if(isset($_POST['submit']))
-    {    
-       
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (!empty($_POST["name"])) {
+        if(isset($_POST['submit'])){
             $name = sanitize($_POST["name"]);
-        }
-        if (!empty($_POST["username"])) {
-            $user = ($_POST["username"]);
-        }
-        if (!empty($_POST["email"])) {
-            $email = ($_POST["email"]);
-        }
-        
-    if (!empty($_POST["password"])) {
+            $user = sanitize($_POST["username"]);
+            $email = sanitize($_POST["email"]);
         $password = sanitize($_POST["password"]);
         $passwordLength = strlen($password);
         if ($passwordLength >= 6 && $passwordLength <= 10) {
-          $pass = password_hash($password, PASSWORD_DEFAULT); // Hash the password
+          $pass = MD5($password); // Hash the password
         } else {
             $passwordwar = "Password must be 6 to 10 characters long";
         }
-    }
+    
 
     require_once 'db_connect.php';
 
-   
-      
          $checkEmail = "SELECT * FROM info WHERE email = '$email'";
         $resultEmail = mysqli_query($conn, $checkEmail);
         if (mysqli_num_rows($resultEmail) > 0) {
             echo "<script>alert('E-mail already exists')</script>";
-            //echo '<script>window.location.href = "login.php";</script>';
         }
              $checkUsername = "SELECT * FROM info WHERE username = '$user'";
              $resultUsername = mysqli_query($conn, $checkUsername);
        if (mysqli_num_rows($resultUsername) > 0) {
                echo "<script>alert('Username already exists')</script>";
-        //         echo '<script>window.location.href = "login.php";</script>';
           }
-        
-       
+  
        else{
             $sql = "INSERT INTO info (name, email, username, password) VALUES ('$name', '$email','$user' ,'$pass')";
-            echo "SQL Query: $sql";
-
+           
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Sign-up successful')</script>";
                echo '<script>window.location.href = "login.php";</script>';
+
             } else {
                 echo "Error: " . $sql . "<br>" . mysqli_error($conn);
             }
-            echo "ok";
           
           }
-     }
-    
-   mysqli_close($conn); // Close the database connection
- }
+        }
+        mysqli_close($conn);
+   // Close the database connection
+        }
 ?>
 
 
@@ -204,6 +187,15 @@ function sanitize($info)
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <!-- <script>
+  'function reset(){
+alert(“javascript called”);
+document.getElementById(“fname”).value=“”;
+document.getElementById(“mname”).value=“”;
+document.getElementById(“lname”).value=“”;
+document.getElementById(“email”).value=“”;
+  }'
+  </script> -->
 </body>
 
 </html>
